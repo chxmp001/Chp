@@ -270,6 +270,15 @@ function Kavo.CreateLib(kavName, themeList)
     title.TextSize = 16.000
     title.TextXAlignment = Enum.TextXAlignment.Left
 
+close.Name = "close"
+close.Parent = MainHeader
+close.BackgroundTransparency = 1.000
+close.Position = UDim2.new(100.949999988, 0, 100.137999997, 0)
+close.Size = UDim2.new(0, 21, 0, 21)
+close.ZIndex = 2
+close.Image = "rbxassetid://3926305904"
+close.ImageRectOffset = Vector2.new(284, 4)
+close.ImageRectSize = Vector2.new(24, 24)
 
 
 reopenButton.Name = "reopenButton"
@@ -283,37 +292,6 @@ reopenButton.ImageRectOffset = Vector2.new(284, 4)
 reopenButton.ImageRectSize = Vector2.new(24, 24)
 reopenButton.Parent = MainHeader
 	
--- Add tween effect for buttons
-local function setupButtonEffect(button)
-    button.MouseEnter:Connect(function()
-        local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-        local tween = game:GetService("TweenService"):Create(button, tweenInfo, {ImageColor3 = Color3.fromRGB(255, 100, 100)})
-        tween:Play()
-    end)
-    
-    button.MouseLeave:Connect(function()
-        local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-        local tween = game:GetService("TweenService"):Create(button, tweenInfo, {ImageColor3 = Color3.fromRGB(255, 255, 255)})
-        tween:Play()
-    end)
-    
-    button.MouseButton1Down:Connect(function()
-        local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-        local tween = game:GetService("TweenService"):Create(button, tweenInfo, {Size = UDim2.new(button.Size.X.Scale * 0.9, 0, button.Size.Y.Scale * 0.9, 0)})
-        tween:Play()
-    end)
-    
-    button.MouseButton1Up:Connect(function()
-        local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-        local tween = game:GetService("TweenService"):Create(button, tweenInfo, {Size = UDim2.new(button.Size.X.Scale / 0.9, 0, button.Size.Y.Scale / 0.9, 0)})
-        tween:Play()
-    end)
-end
-
--- Apply effects to buttons
-setupButtonEffect(close)
-setupButtonEffect(reopenButton)
-
 -- When the close button is clicked
 close.MouseButton1Click:Connect(function()
     -- Create tweens for closing the ScreenGui and making the close button disappear
