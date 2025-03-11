@@ -286,7 +286,7 @@ reopenButton.Size = UDim2.new(0.079, 0, 0.079, 0)
 reopenButton.Position = UDim2.new(0.9, 0, 0.1, 0)
 reopenButton.BackgroundTransparency = 1
 reopenButton.Image = "rbxassetid://17217099969"
-reopenButton.Visible = false
+reopenButton.Visible = true
 reopenButton.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	
 -- Add tween effect for buttons
