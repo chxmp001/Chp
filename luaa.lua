@@ -274,7 +274,7 @@ close.Name = "close"
 close.Parent = MainHeader
 close.BackgroundTransparency = 1.000
 close.Position = UDim2.new(0.949999988, 0, 0.137999997, 0)
-close.Size = UDim2.new(0, 50, 0, 50)
+close.Size = UDim2.new(0, 21, 0, 21)
 close.ZIndex = 2
 close.Image = "rbxassetid://3926305904"
 close.ImageRectOffset = Vector2.new(284, 4)
@@ -283,9 +283,11 @@ close.ImageRectSize = Vector2.new(24, 24)
 reopenButton.Name = "reopenButton"
 reopenButton.Size = UDim2.new(0.079, 0, 0.079, 0)
 reopenButton.Position = UDim2.new(0.949999988, 0, 0.137999997, 0)
-reopenButton.BackgroundTransparency = 1
-reopenButton.Image = "rbxassetid://17217099969"
+reopenButton.BackgroundTransparency = 1.000
+reopenButton.Image = "rbxassetid://3926305904"
 reopenButton.Visible = false
+reopenButton.ImageRectOffset = Vector2.new(284, 4)
+reopenButton.ImageRectSize = Vector2.new(24, 24)
 reopenButton.Parent = MainHeader
 	
 -- Add tween effect for buttons
