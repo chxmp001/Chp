@@ -269,7 +269,7 @@ function Kavo.CreateLib(kavName, themeList)
     title.TextSize = 16.000
     title.TextXAlignment = Enum.TextXAlignment.Left
 
-   close.Name = "close"
+close.Name = "close"
 close.Parent = MainHeader
 close.BackgroundTransparency = 1.000
 close.Position = UDim2.new(0.949999988, 0, 0.137999997, 0)
@@ -279,79 +279,77 @@ close.Image = "rbxassetid://3926305904"
 close.ImageRectOffset = Vector2.new(284, 4)
 close.ImageRectSize = Vector2.new(24, 24)
 
--- Function to create the open button
-local function createOpenButton()
-    local openButton = Instance.new("ImageButton")
-    openButton.Name = "openButton"
-    openButton.Parent = MainHeader
-    openButton.BackgroundTransparency = 1.000
-    openButton.Position = UDim2.new(0.079, 0, 0.079, 0)
-    openButton.Size = UDim2.new(0.079, 0, 0.079, 0)
-    openButton.Image = "rbxassetid://17217099969"
-    openButton.ZIndex = 2
+-- Create the reopen button (initially hidden)
+local reopenButton = Instance.new("ImageButton")
+reopenButton.Name = "reopenButton"
+reopenButton.Size = UDim2.new(0.079, 0, 0.079, 0)
+reopenButton.Position = UDim2.new(0.9, 0, 0.1, 0)
+reopenButton.BackgroundTransparency = 1
+reopenButton.Image = "rbxassetid://17217099969"
+reopenButton.Visible = false
+reopenButton.Parent = game.Players.LocalPlayer.PlayerGui
 
-    -- Variables for dragging the open button
-    local dragging = false
-    local dragStart = nil
-    local startPos = nil
-
-    -- Function to start dragging the button
-    openButton.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = true
-            dragStart = input.Position
-            startPos = openButton.Position
-        end
+-- Add tween effect for buttons
+local function setupButtonEffect(button)
+    button.MouseEnter:Connect(function()
+        local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local tween = game:GetService("TweenService"):Create(button, tweenInfo, {ImageColor3 = Color3.fromRGB(255, 100, 100)})
+        tween:Play()
     end)
-
-    -- Function to stop dragging the button
-    openButton.InputEnded:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = false
-        end
+    
+    button.MouseLeave:Connect(function()
+        local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local tween = game:GetService("TweenService"):Create(button, tweenInfo, {ImageColor3 = Color3.fromRGB(255, 255, 255)})
+        tween:Play()
     end)
-
-    -- Function to update the button position while dragging
-    game:GetService("UserInputService").InputChanged:Connect(function(input)
-        if dragging then
-            local delta = input.Position - dragStart
-            openButton.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-        end
+    
+    button.MouseButton1Down:Connect(function()
+        local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local tween = game:GetService("TweenService"):Create(button, tweenInfo, {Size = UDim2.new(button.Size.X.Scale * 0.9, 0, button.Size.Y.Scale * 0.9, 0)})
+        tween:Play()
     end)
-
-    -- When the open button is clicked, we show the ScreenGui and hide the open button
-    openButton.MouseButton1Click:Connect(function()
-        ScreenGui.Parent = game.Players.LocalPlayer.PlayerGui
-        openButton:Destroy() -- Remove the open button
-
-        -- Make sure the close button is shown again
-        close.Visible = true
+    
+    button.MouseButton1Up:Connect(function()
+        local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local tween = game:GetService("TweenService"):Create(button, tweenInfo, {Size = UDim2.new(button.Size.X.Scale / 0.9, 0, button.Size.Y.Scale / 0.9, 0)})
+        tween:Play()
     end)
 end
+
+-- Apply effects to buttons
+setupButtonEffect(close)
+setupButtonEffect(reopenButton)
 
 -- When the close button is clicked
 close.MouseButton1Click:Connect(function()
     -- Create tweens for closing the ScreenGui and making the close button disappear
-    game.TweenService:Create(close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+    game:GetService("TweenService"):Create(close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
         ImageTransparency = 1
     }):Play()
     wait()
-    game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+    game:GetService("TweenService"):Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
         Size = UDim2.new(0,0,0,0),
         Position = UDim2.new(0, Main.AbsolutePosition.X + (Main.AbsoluteSize.X / 2), 0, Main.AbsolutePosition.Y + (Main.AbsoluteSize.Y / 2))
     }):Play()
 
     wait(1)
-    ScreenGui:Destroy()
-
-    -- Create the open button after closing
-    createOpenButton()
-
-    -- Hide the close button
-    close.Visible = false
+    -- Hide ScreenGui and show reopen button
+    ScreenGui.Enabled = false
+    reopenButton.Visible = true
 end)
 
-
+-- When the reopen button is clicked
+reopenButton.MouseButton1Click:Connect(function()
+    ScreenGui.Enabled = true
+    reopenButton.Visible = false
+    
+    -- Reset close button transparency
+    close.ImageTransparency = 0
+    
+    -- Reset Main frame size and position
+    Main.Size = UDim2.new(0.5, 0, 0.5, 0) -- ปรับตามขนาดเดิมของ Main
+    Main.Position = UDim2.new(0.25, 0, 0.25, 0) -- ปรับตามตำแหน่งเดิมของ Main
+end)
     MainSide.Name = "MainSide"
     MainSide.Parent = Main
     MainSide.BackgroundColor3 = themeList.Header
