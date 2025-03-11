@@ -326,7 +326,7 @@ setupButtonEffect(reopenButton)
 close.MouseButton1Click:Connect(function()
     -- Create tweens for closing the ScreenGui and making the close button disappear
     game:GetService("TweenService"):Create(close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
-        ImageTransparency = 1
+        ImageTransparency = 0
     }):Play()
     wait()
     game:GetService("TweenService"):Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
