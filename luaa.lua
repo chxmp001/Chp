@@ -285,7 +285,7 @@ reopenButton.Size = UDim2.new(0.079, 0, 0.079, 0)
 reopenButton.Position = UDim2.new(0.949999988, 0, 0.137999997, 0)
 reopenButton.BackgroundTransparency = 1
 reopenButton.Image = "rbxassetid://17217099969"
-reopenButton.Visible = true
+reopenButton.Visible = false
 reopenButton.Parent = MainHeader
 	
 -- Add tween effect for buttons
