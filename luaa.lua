@@ -208,6 +208,7 @@ function Kavo.CreateLib(kavName, themeList)
     local pages = Instance.new("Frame")
     local Pages = Instance.new("Folder")
     local infoContainer = Instance.new("Frame")
+    local reopenButton = Instance.new("ImageButton")
 
     local blurFrame = Instance.new("Frame")
 
@@ -279,15 +280,13 @@ close.Image = "rbxassetid://3926305904"
 close.ImageRectOffset = Vector2.new(284, 4)
 close.ImageRectSize = Vector2.new(24, 24)
 
--- เพิ่มปุ่ม reopenButton
-local reopenButton = Instance.new("ImageButton")
 reopenButton.Name = "reopenButton"
 reopenButton.Size = UDim2.new(0.079, 0, 0.079, 0)
 reopenButton.Position = UDim2.new(0.949999988, 0, 0.137999997, 0)
 reopenButton.BackgroundTransparency = 1
 reopenButton.Image = "rbxassetid://17217099969"
 reopenButton.Visible = true
-reopenButton.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+reopenButton.Parent = MainHeader
 	
 -- Add tween effect for buttons
 local function setupButtonEffect(button)
