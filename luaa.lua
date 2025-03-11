@@ -286,6 +286,7 @@ reopenButton.Position = UDim2.new(0.949999988, 0, 0.137999997, 0)
 reopenButton.BackgroundTransparency = 1.000
 reopenButton.Image = "rbxassetid://3926305904"
 reopenButton.Visible = false
+reopenButton.ZIndex = 2
 reopenButton.ImageRectOffset = Vector2.new(284, 4)
 reopenButton.ImageRectSize = Vector2.new(24, 24)
 reopenButton.Parent = MainHeader
@@ -335,7 +336,7 @@ close.MouseButton1Click:Connect(function()
 
     wait(1)
     -- Hide ScreenGui and show reopen button
-    ScreenGui.Enabled = false
+    ScreenGui.Enabled = true
     reopenButton.Visible = true
 end)
 
